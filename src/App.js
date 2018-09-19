@@ -5,18 +5,24 @@ class FullResult extends Component {
   constructor({props}) {
     super({props});
     this.age = props.name;
-    this.state = {value: true};
+    this.state = {
+      result: false,
+      age: 0,
+      smoking: 0,
+      alco: 0,
+      today: new Date()
+    };
   }
-  CalcAges() {
+  alertResult() {
     if (this.state.value === true) {
     return <div>Меня зовут не дима каплин а {this.age}</div>}
   }
-  handleButtonClick = () => {this.setState({value: !this.state.value})}
+  calcButtonClick = () => {this.setState({result: !this.state.result})}
   render() {
     return (
       <div className = 'central'>
-        {this.CalcAges()}
-        <button onClick = {this.handleButtonClick}>жми</button>
+        {this.alertResult()}
+        <button onClick = {this.calcButtonClick}>жми</button>
       </div>
     );
   }
