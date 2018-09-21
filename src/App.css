@@ -24,8 +24,8 @@ body {
   button {
     position: absolute;
     margin-top: 15vh;
-    height: 5vh;
-    width: 10vh;
+    height: 10vh;
+    width: 15vh;
     max-width: 300px;
     max-height: 150px;
     min-width: 53px;

@@ -16,9 +16,11 @@ class FullResult extends Component {
   }
   alertResult() {
     if (this.state.result === false) {
-    return <div>Меня зовут не дима каплин а {this.state.age} курю  ли я? {this.state.smoking}</div>}
+    return <div>Меня зовут не дима каплин а {this.state.age} курю  ли я? {this.state.smoking}</div>} else 
+    {return <div>Чтобы узнать время и обстоятельства своего выхода на пенсию - заполните все формы</div>}
   }
   calcButtonClick = () => {this.setState({result: !this.state.result})}
+  buttonValue  = () => {if (this.state.result === false) {return 'пройти еще раз'} else {return 'посчитать'}}
   ageInputClick = (event) => {this.setState({age: event.target.value})}
   sexInputClick = () => {this.setState({sex: this.selectSex.options.selectedIndex})}
   smokingInputClick = () => {this.setState({smoking: this.selectSmoking.options.selectedIndex})}
@@ -37,11 +39,11 @@ class FullResult extends Component {
           <option value = 'yes'>да</option>
           <option value = 'no'>нет</option>
         </select>
-        <select ref = {(select) => {this.selectAlco = select;}} onChange = {this.alcoInputClick.bind(this)}>
+        <select ref = {(select) => {this.selectAlco = select;}} onChange = {this.alcoInputClick}>
           <option value = 'yes'>да</option>
           <option value = 'no'>нет</option>
         </select>   
-        <button onClick = {this.calcButtonClick}>жми</button>
+        <button onClick = {this.calcButtonClick}>{this.buttonValue()}</button>
       </div>
     )};
   }
