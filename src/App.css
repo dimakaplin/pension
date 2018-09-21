@@ -23,7 +23,6 @@ body {
   }
   button {
     position: absolute;
-    margin-top: 15vh;
     height: 10vh;
     width: 15vh;
     max-width: 300px;
@@ -39,4 +38,7 @@ body {
     align-items: center;
     margin-top: 5vh;
     height: 30vh;
+  }
+  .result {
+    height: 150vh;
   }
