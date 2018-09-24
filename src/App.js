@@ -58,21 +58,17 @@ class FullResult extends Component {            //Main component
 
     function calcPresidentTerm(penYear, birthYear, penAge) {
       let presidentYears = (penYear - 2030) / 6;
-      let termCounter = presidentYears / 3;
+      let termCounter = (presidentYears % 3).toFixed(1);
       
-      if (termCounter > 4) {
-        termCounter = termCounter /3;
-      }
-
      switch (true) {
       case penYear >= 2018 && penYear <= 2024 :
         return `4 срок президента Путина`;
       case penYear > 2024 && penYear <= 2030 :
         return `2 срок президента Медведева` ;
       case (termCounter > 3) || (termCounter < 2) :
-        return  `${Math.ceil(presidentYears * 0.67) + 4} срок президента Путина`;
+        return  `${Math.ceil(presidentYears * 0.67) + 4} ${termCounter} срок президента Путина`;
       default:
-         return `${Math.ceil(presidentYears * 0.34) + 2}  срок президента Медведева`
+         return `${Math.ceil(presidentYears * 0.34) + 2} ${termCounter} срок президента Медведева`
       }
     }  
 
