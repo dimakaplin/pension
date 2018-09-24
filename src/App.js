@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-class FullResult extends Component {
+class FullResult extends Component {            //Main component
   constructor() {
     super();
-    this.state = {
+    this.state = {                              //states, result is state for alert results                                  
       result: false,
       age: '',
       sex: '',
@@ -12,8 +12,8 @@ class FullResult extends Component {
       drugs: '',
       today: new Date()
     };
-  }
-  alertResult() {
+  }                                              //methods                           
+  alertResult() {                                // this method alerts inputs or result in app       
     if (this.state.result === true) {
     return <div>{this.calcResult()}</div>} 
     else 
@@ -48,21 +48,21 @@ class FullResult extends Component {
               </div>
             </div>}
   }
-  calcResult() {
+  calcResult() {                                 // in this method will processing all inputs and return result text
     const birthYear = this.state.today.getFullYear() - this.state.age,
-          penAge = verifyAge(this.state.sex, birthYear),
+          penAge = checkAge(this.state.sex, birthYear),
           penYear = penAge + birthYear,
           presidentTerm = calcPresidentTerm(penYear, birthYear, penAge),
-          habits = verfyHabits (this.state.smoking, this.state.alco, this.state.drugs);
+          habits = checkHabits (this.state.smoking, this.state.alco, this.state.drugs);
     
 
     function calcPresidentTerm(penYear, birthYear, penAge) {
       let presidentYears = (penYear - 2030) / 6;
       let termCounter = presidentYears / 3;
       
-        //for (;termCounter > 4;) {
-        //termCounter = termCounter / 3;
-     // }
+      if (termCounter > 4) {
+        termCounter = termCounter /3;
+      }
 
      switch (true) {
       case penYear >= 2018 && penYear <= 2024 :
@@ -76,13 +76,13 @@ class FullResult extends Component {
       }
     }  
 
-    function verifyAge(sex, birthYear) {
-      if (sex === 1) {
+    function checkAge(sex, birthYear) {       // this function must be rewritten, returnt false age when man or woman are older then 1959 and 1964
+      if (sex === 2) {
         switch (true) {
-          case birthYear >= 1964 && birthYear <= 1971 :
+          case birthYear >= 1964 && birthYear <= 1968 :
             return 56 + (birthYear - 1964);
           default:
-            return 68;  
+            return 60;  
         }
       }
       else {
@@ -90,11 +90,11 @@ class FullResult extends Component {
           case birthYear >= 1959 && birthYear <= 1963 :
             return 61 + (birthYear - 1959);
           default:
-            return 70;  
+            return 65;  
         }
       }
     }
-    function verfyHabits (smoking, alco, drugs) {
+    function checkHabits (smoking, alco, drugs) {
       switch (true) {
         case (smoking + alco + drugs === 6) :
           return 'Отказ от вредных привычек сделал свое дело, вы все ещё бодры, веселы и в состоянии работать. Хочется верить, что это надолго.'
@@ -111,19 +111,20 @@ class FullResult extends Component {
         case smoking === 1 && alco === 1 && drugs === 1 :
           return 'Вы Уинстон Черчилль с марихуаной под подушкой. То что вы дожили до пенсии - невероятно круто, можно сказать вам повезло. Сейчас самое время заняться своим здоровьем.'
         default:
-          return 123;  
+          return 'Про ваше здовровье знаете только вы.';  
       }
     }
     
-    return (<div>
-      <p>Поздравляем! Вам {penAge} и вы теперь на заслуженной пенсии.</p>
-      <p>На дворе {penYear} год, идёт {presidentTerm}, Россия {penYear >= 2050 ? 'по-прежнему' : ''} встаёт с колен!</p>
-      <p>{habits}{this.state.smoking}</p> 
-      </div>)
-  }
+    return    penYear <= this.state.today.getFullYear() ? <p>Вы уже на пенсии, поздравляем!</p> :  //must be rewritten with function verfyAge
+                <div><p>Поздравляем! Вам {penAge} и вы теперь на заслуженной пенсии.</p>
+                <p>На дворе {penYear} год, идёт {presidentTerm}, Россия {penYear >= 2050 ? 'по-прежнему' : ''} встаёт с колен!</p>
+                <p>{habits}</p></div> 
+            
+  }                                                                                                       //methods for button and inputs
   calcButtonClick = () => {this.setState({result: !this.state.result}) 
   if (this.state.result === true){this.setState({age: '', sex: '', smoking: '', drugs: ''})}}
-  buttonValue  = () => {if (this.state.result === true) {return 'пройти еще раз'} else if (this.state.age === '' || this.state.sex === '') {return 'введите пол и возраст'} else {return 'посчитать'}}
+  buttonValue  = () => {if (this.state.result === true) {return 'пройти еще раз'} else if 
+  (this.state.age === '' || this.state.sex === '') {return 'введите пол и возраст'} else {return 'посчитать'}}
   ageInputClick = (event) => {this.setState({age: event.target.value})}
   sexInputClick = () => {this.setState({sex: this.selectSex.options.selectedIndex})}
   smokingInputClick = () => {this.setState({smoking: this.selectSmoking.options.selectedIndex})}
